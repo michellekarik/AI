@@ -1,0 +1,70 @@
+import random
+
+def generate_random_state(N):
+    return [random.randint(0, N-1) for _ in range(N)]
+
+def calculate_conflicts(state):
+    conflicts = 0
+    N = len(state)
+    for i in range(N):
+        for j in range(i+1, N):
+            if state[i] == state[j]:
+                conflicts += 1
+            elif abs(state[i] - state[j]) == abs(i - j):
+                conflicts += 1
+    return conflicts
+
+def get_neighbors(state):
+    neighbors = []
+    N = len(state)
+    for col in range(N):
+        for row in range(N):
+            if state[col] != row:
+                neighbor = state.copy()
+                neighbor[col] = row
+                neighbors.append(neighbor)
+    return neighbors
+
+def hill_climbing(N, max_iterations=1000):
+    current_state = generate_random_state(N)
+    current_conflicts = calculate_conflicts(current_state)
+
+    for _ in range(max_iterations):
+        if current_conflicts == 0:
+            break
+
+        neighbors = get_neighbors(current_state)
+        neighbors_conflicts = [(calculate_conflicts(neighbor), neighbor) for neighbor in neighbors]
+        neighbors_conflicts.sort(key=lambda x: x[0])
+        best_conflicts, best_neighbor = neighbors_conflicts[0]
+
+        if best_conflicts >= current_conflicts:
+            break
+
+        current_state = best_neighbor
+        current_conflicts = best_conflicts
+
+    return current_state, current_conflicts
+
+def print_board(state):
+    N = len(state)
+    for row in range(N):
+        line = ""
+        for col in range(N):
+            if state[col] == row:
+                line += "Q "
+            else:
+                line += ". "
+        print(line)
+    print()
+
+# Run for 4x4 board
+N = 4
+solution, conflicts = hill_climbing(N)
+
+if conflicts == 0:
+    print(f"Solution found for {N}-Queens:")
+else:
+    print(f"No solution found, best state with {conflicts} conflicts:")
+
+print_board(solution)

@@ -1,0 +1,58 @@
+class VacuumEnvironment:
+    def __init__(self, location_A_dirty=True, location_B_dirty=True):
+        self.locations = {'A': 'Dirty' if location_A_dirty else 'Clean',
+                          'B': 'Dirty' if location_B_dirty else 'Clean'}
+        self.agent_location = 'A'
+
+    def status(self):
+        print(f"Location A: {self.locations['A']}, Location B: {self.locations['B']}, Agent at: {self.agent_location}")
+
+    def is_clean(self):
+        return self.locations['A'] == 'Clean' and self.locations['B'] == 'Clean'
+
+    def suck(self):
+        if self.locations[self.agent_location] == 'Dirty':
+            self.locations[self.agent_location] = 'Clean'
+            print(f"Sucked dirt at location {self.agent_location}.")
+        else:
+            print(f"No dirt to suck at location {self.agent_location}.")
+
+    def move_left(self):
+        if self.agent_location == 'B':
+            self.agent_location = 'A'
+            print("Moved left to location A.")
+        else:
+            print("Already at the leftmost location.")
+
+    def move_right(self):
+        if self.agent_location == 'A':
+            self.agent_location = 'B'
+            print("Moved right to location B.")
+        else:
+            print("Already at the rightmost location.")
+
+class SimpleReflexAgent:
+    def __init__(self, environment):
+        self.env = environment
+
+    def run(self):
+        steps = 0
+        while not self.env.is_clean() and steps < 10:
+            self.env.status()
+            current_loc = self.env.agent_location
+            if self.env.locations[current_loc] == 'Dirty':
+                self.env.suck()
+            else:
+                # Move to the other location
+                if current_loc == 'A':
+                    self.env.move_right()
+                else:
+                    self.env.move_left()
+            steps += 1
+        print("Cleaning completed or max steps reached.")
+        self.env.status()
+
+# Run the simulation
+env = VacuumEnvironment(location_A_dirty=True, location_B_dirty=False)
+agent = SimpleReflexAgent(env)
+agent.run()

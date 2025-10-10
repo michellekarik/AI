@@ -1,0 +1,82 @@
+import heapq
+
+GOAL_STATE = (1, 2, 3,
+              4, 5, 6,
+              7, 8, 0)  # 0 is the blank
+
+def manhattan_distance(state):
+    distance = 0
+    for i, tile in enumerate(state):
+        if tile == 0:
+            continue
+        goal_pos = tile - 1
+        current_row, current_col = divmod(i, 3)
+        goal_row, goal_col = divmod(goal_pos, 3)
+        distance += abs(current_row - goal_row) + abs(current_col - goal_col)
+    return distance
+
+def get_neighbors(state):
+    neighbors = []
+    zero_pos = state.index(0)
+    zero_row, zero_col = divmod(zero_pos, 3)
+    
+    moves = [(-1,0), (1,0), (0,-1), (0,1)]  # Up, Down, Left, Right
+    
+    for dr, dc in moves:
+        new_row, new_col = zero_row + dr, zero_col + dc
+        if 0 <= new_row < 3 and 0 <= new_col < 3:
+            new_pos = new_row * 3 + new_col
+            new_state = list(state)
+            # Swap blank (0) with the adjacent tile
+            new_state[zero_pos], new_state[new_pos] = new_state[new_pos], new_state[zero_pos]
+            neighbors.append(tuple(new_state))
+    return neighbors
+
+def reconstruct_path(came_from, current):
+    path = []
+    while current in came_from:
+        path.append(current)
+        current = came_from[current]
+    path.append(current)
+    path.reverse()
+    return path
+
+def a_star(start_state):
+    open_set = []
+    heapq.heappush(open_set, (manhattan_distance(start_state), 0, start_state))
+    came_from = {}
+    g_score = {start_state: 0}
+    
+    while open_set:
+        _, current_cost, current_state = heapq.heappop(open_set)
+        
+        if current_state == GOAL_STATE:
+            return reconstruct_path(came_from, current_state)
+        
+        for neighbor in get_neighbors(current_state):
+            tentative_g_score = g_score[current_state] + 1
+            if neighbor not in g_score or tentative_g_score < g_score[neighbor]:
+                came_from[neighbor] = current_state
+                g_score[neighbor] = tentative_g_score
+                f_score = tentative_g_score + manhattan_distance(neighbor)
+                heapq.heappush(open_set, (f_score, tentative_g_score, neighbor))
+    return None  # No solution found
+
+def print_state(state):
+    for i in range(0, 9, 3):
+        print(' '.join(str(x) if x != 0 else ' ' for x in state[i:i+3]))
+    print()
+
+# Example Usage:
+start = (1, 2, 3,
+         4, 0, 6,
+         7, 5, 8)  # A solvable initial state
+
+solution_path = a_star(start)
+
+if solution_path:
+    print(f"Solution found in {len(solution_path)-1} moves:")
+    for state in solution_path:
+        print_state(state)
+else:
+    print("No solution found.")

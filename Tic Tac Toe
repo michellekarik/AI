@@ -75,3 +75,47 @@ def tic_tac_toe():
 
 if __name__ == "__main__":
     tic_tac_toe()
+
+
+------------------------------------------------------------------------------
+OUTPUT:
+
+Welcome to Tic Tac Toe!
+  |   |
+---------
+  |   |
+---------
+  |   |
+---------
+Enter your move (row and column: 1 1 for top-left):  1 1
+X |   |
+---------
+  |   |
+---------
+  |   |
+---------
+Computer placed an O at position 3 3
+X |   |
+---------
+  |   |
+---------
+  |   | O
+---------
+Enter your move (row and column: 1 1 for top-left): 1 0
+Invalid position! Try again.
+Enter your move (row and column: 1 1 for top-left): 1 2
+X | X |
+---------
+  |   |
+---------
+  |   | O
+---------
+Computer placed an O at position 1 3
+X | X | O
+---------
+  |   |
+---------
+  |   | O
+---------
+Enter your move (row and column: 1 1 for top-left): 1 3
+That spot is already taken!

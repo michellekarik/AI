@@ -65,3 +65,29 @@ if __name__ == "__main__":
         print("Query is TRUE based on KB.")
     else:
         print("Query cannot be proved from KB.")
+
+--------------------------------------------------------------
+OUPUT:
+Proving query: R
+
+Initial KB clauses:
+{'Q', 'P'}
+{'~P'}
+{'~Q', 'R'}
+{'~R'}
+
+Resolving {'Q', 'P'} and {'~P'} => {'Q'}
+Resolving {'Q', 'P'} and {'~Q', 'R'} => {'P', 'R'}
+Resolving {'~Q', 'R'} and {'~R'} => {'~Q'}
+Resolving {'Q', 'P'} and {'~P'} => {'Q'}
+Resolving {'Q', 'P'} and {'~Q', 'R'} => {'P', 'R'}
+Resolving {'Q', 'P'} and {'~Q'} => {'P'}
+Resolving {'~P'} and {'P', 'R'} => {'R'}
+Resolving {'~Q', 'R'} and {'~R'} => {'~Q'}
+Resolving {'~Q', 'R'} and {'Q'} => {'R'}
+Resolving {'~R'} and {'P', 'R'} => {'P'}
+Resolving {'Q'} and {'~Q'} => set()
+
+Empty clause found! Query proved.
+
+Query is TRUE based on KB.

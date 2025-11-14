@@ -56,3 +56,10 @@ class SimpleReflexAgent:
 env = VacuumEnvironment(location_A_dirty=True, location_B_dirty=False)
 agent = SimpleReflexAgent(env)
 agent.run()
+
+
+----------------------------------------------------------------------------
+Location A: Dirty, Location B: Clean, Agent at: A
+Sucked dirt at location A.
+Cleaning completed or max steps reached.
+Location A: Clean, Location B: Clean, Agent at: A

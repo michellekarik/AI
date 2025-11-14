@@ -68,3 +68,11 @@ else:
     print(f"No solution found, best state with {conflicts} conflicts:")
 
 print_board(solution)
+
+----------------------------------------------------------------------------------------------
+OUTPUT:
+Solution found for 4-Queens:
+. Q . .
+. . . Q
+Q . . .
+. . Q .

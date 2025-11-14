@@ -85,3 +85,17 @@ if __name__ == "__main__":
 
     fc = ForwardChainingTree(KB, query)
     fc.infer()
+
+---------------------------------------------------------------
+OUTPUT:
+Program started...
+
+=== Forward Chaining Reasoning Tree ===
+
+Inferred: Mortal(Socrates) (from Human(Socrates))
+
+✅ Query Found!
+
+=== Inference Tree (Facts at Root) ===
+└── Human(Socrates)
+   └── Mortal(Socrates)

@@ -70,3 +70,8 @@ alpha = ('OR', 'A', 'B')
 
 result = tt_entails(KB, alpha)
 print("Does KB entail alpha?", result)
+
+--------------------------------------------------------
+OUTPUT:
+
+Does KB entail alpha? True

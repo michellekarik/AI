@@ -86,3 +86,41 @@ if __name__ == "__main__":
     print(f"Solution found in {len(solution_path) - 1} moves:")
     for step in solution_path:
         print_puzzle(step)
+
+------------------------------------------------------------------------
+OUTPUT:
+Starting state:
+(1, 2, 3)
+(4, 0, 6)
+(7, 5, 8)
+
+Iteration 1 completed at Depth limit = 0
+Last visited puzzle state in this iteration:
+(1, 2, 3)
+(4, 0, 6)
+(7, 5, 8)
+
+Iteration 2 completed at Depth limit = 1
+Last visited puzzle state in this iteration:
+(1, 2, 3)
+(4, 6, 0)
+(7, 5, 8)
+
+Iteration 3 completed at Depth limit = 2
+Last visited puzzle state in this iteration:
+(1, 2, 3)
+(4, 5, 6)
+(7, 8, 0)
+
+Solution found in 2 moves:
+(1, 2, 3)
+(4, 0, 6)
+(7, 5, 8)
+
+(1, 2, 3)
+(4, 5, 6)
+(7, 0, 8)
+
+(1, 2, 3)
+(4, 5, 6)
+(7, 8, 0)
